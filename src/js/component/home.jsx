@@ -1,45 +1,29 @@
-import React, {useState} from "react";
-
-
-
-//create your first component
+import React, { useState } from "react";
 
 const Home = () => {
-	
-	const [inputValue, setInputValue] = useState("");
-	const [todos, setTodos] = useState([]);
-  
-	return (
-	<div className="col-12 d-flex justify-content-center">
-	  <div className="row text-center">
-		<h1>todos</h1>
-				<input
-		  type="text"
-		  onChange={(e) => setInputValue(e.target.value)}
-		  value={inputValue}
-		  onKeyPress={(e) => {
-			if (e.key === "Enter") {
-			  setTodos(todos.concat([inputValue]));
-			  setInputValue("");
-			}
-		  }}
-		  placeholder="What needs to be done?"
-		/>
-		{todos.map((item, index) => (
-  <div key={index} className="card mb-3">
-    <div className="card-body p-1 m-1 d-flex justify-content-between">
-      {item}
- 
-    <button type="button" className="btn-close " aria-label="Close" onClick={() =>
-      setTodos(todos.slice(0, -1))
-    }></button>
-	   </div>
-  </div>
-		))}
-	  </div>
-	  </div>
-	);
+  const [data, setData] = useState("");
+  const [todo, setTodo] = useState([]);
+
+  const handleChange = (event) => {
+    setData(event.target.value);
   };
-  
+
+  const addTodo = () => {
+    setTodo([...todo, { data }]);
+
+  };
+
+  return (
+    <>
+      <input type="text" name="text" value={data} onChange={handleChange} />
+      <button onClick={addTodo}>Add Todo</button>
+      <ul>
+        {todo.map((todoItem, index) => {
+          return <li key={index}>{todoItem.data}</li>;
+        })}
+      </ul>
+    </>
+  );
+};
 
 export default Home;
